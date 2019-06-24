@@ -1,0 +1,33 @@
+<head> 
+  
+</head>
+<body>
+  <h1>Video information</h1>
+  <form>
+    <div>
+      <label>Select a video</label>
+      <br>
+      <input type="file" accept="video/*" />
+    </div>
+    <button type="submit">Get Video Info</button>
+  </form>
+  <h1 id="result"></h1>
+  <script>
+      // IPC System
+      const electron = require('electron');
+      const { ipcRender } = electron;
+
+      document.querySelector('form').addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const {path} = document.querySelector('input').files[0];
+        ipcRender.send('video:submit', path);
+
+        // debugger
+      });
+
+      ipcRender.in('video:metadata', (e, duartion)=> {
+        document.querySelector('#result').innerHTML = `Video is ${duration} seconds`
+      });
+  </script>
+  <!-- check on developer tools on chrome on console then document.querySelector('input').files -->
+</body>
