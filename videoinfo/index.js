@@ -7,7 +7,11 @@ let mainWindow;
 
 app.on('ready', () => {
   //console.log('App is now ready');
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 });
 
